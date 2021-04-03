@@ -1,4 +1,4 @@
-package main
+package myrsa
 
 import (
 	"fmt"
@@ -22,6 +22,15 @@ func TestGenerate(t *testing.T) {
 
 	Generate(p, q)
 
-	t.Log(".............")
-	fmt.Println("this is encrypt....")
+	// t.Log(".............")
+	// fmt.Println("this is encrypt....")
+}
+
+func TestModularSolver(t *testing.T) {
+	a := big.NewInt(5)
+	b := big.NewInt(6)
+
+	result := modularSolver(a, b)
+
+	fmt.Println(a, b, result)
 }

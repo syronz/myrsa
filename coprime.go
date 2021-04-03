@@ -1,13 +1,10 @@
-package main
+package myrsa
 
 import (
-	"fmt"
 	"math/big"
 )
 
 func gcd(a, b *big.Int) *big.Int {
-	// time.Sleep(1 * time.Second)
-	fmt.Println("........>>>>>>>", a, b)
 	zero := big.NewInt(0)
 	if a.Cmp(zero) == 0 || b.Cmp(zero) == 0 {
 		return zero
@@ -18,23 +15,25 @@ func gcd(a, b *big.Int) *big.Int {
 	}
 
 	if a.Cmp(b) == 1 {
-		bNeg := new(big.Int)
-		*bNeg = *b
-		bNeg.Neg(bNeg)
+		bNeg := new(big.Int).Neg(b)
+		// bNeg.Neg(bNeg)
 		return gcd(a.Add(a, bNeg), b)
 	}
 
 	// return zero
-	aNeg := new(big.Int)
-	*aNeg = *a
-	aNeg.Neg(aNeg)
+	// aNeg := new(big.Int)
+	// *aNeg = *a
+	// aNeg.Neg(aNeg)
+	aNeg := new(big.Int).Neg(a)
 	return gcd(a, b.Add(b, aNeg))
 }
 
 // Coprime is checking two numbers are coprime
 func Coprime(a, b *big.Int) bool {
 	one := big.NewInt(1)
-	result := gcd(a, b)
+	aTmp := new(big.Int).Set(a)
+	bTmp := new(big.Int).Set(b)
+	result := gcd(aTmp, bTmp)
 	if result.Cmp(one) == 0 {
 		return true
 	}

@@ -1,4 +1,4 @@
-package main
+package myrsa
 
 import (
 	"bufio"
@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// Generate will produce public key, private key and modular
 func Generate(p, q *big.Int) (err error) {
 
 	fmt.Println("p & q", p, q)
@@ -27,7 +28,31 @@ func Generate(p, q *big.Int) (err error) {
 
 	fmt.Println("p & q after add", p, q, N, pDec, qDec, PHI)
 
+	publicKey := new(big.Int)
+
+	// tmp := new(big.Int)
+	for i := dec(PHI); i.Cmp(big.NewInt(1)) == 1; i.Add(i, big.NewInt(-1)) {
+		if Coprime(i, PHI) && Coprime(i, N) {
+			publicKey.Set(i)
+		}
+	}
+
+	for j := big.NewInt(1); j.Cmp(big.NewInt(10)) == -1; j.Add(j, big.NewInt(1)) {
+		fmt.Println(j)
+	}
+
 	return
+}
+
+func dec(num *big.Int) *big.Int {
+	tmp := new(big.Int)
+	tmp.Add(num, big.NewInt(-1))
+	return tmp
+}
+
+func modularSolver(a, b *big.Int) *big.Int {
+	fmt.Println(a, b)
+	return a
 }
 
 func SandBox() {
